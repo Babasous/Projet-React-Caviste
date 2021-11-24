@@ -1,0 +1,13 @@
+body{
+  background-color: olive;
+  text-align: center;
+  font-style: italic;
+  color: aliceblue;
+}
+
+h1{
+  text-align: center;
+  text-decoration: underline;
+  font-style: italic;
+  color: aliceblue;
+}
