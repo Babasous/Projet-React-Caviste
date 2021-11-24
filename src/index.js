@@ -2,12 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-/* class TitrePage extends React.Component{
-  render(){
-    return <h1>Liste des Vins classés par région</h1>
-  }
-} */
-
 class ProductRegionRow extends React.Component {
   render() {
     const region = this.props.region;
@@ -74,6 +68,21 @@ class ProductTable extends React.Component {
   }
 }
 
+class DropDownList extends React.Component{
+  render(){
+    return(
+      <select name="pays" id="pays-select">
+          <option value="">--Choisir une langue--</option>
+          <option value="France">Français</option>
+          <option value="Anglais">USA</option>
+          <option value="Espagne">Espagne</option>
+          <option value="Argentine">Argentine</option>
+          <option value="Italie">Italie</option>
+      </select>
+    )
+  }
+}
+
 class SearchBar extends React.Component {
   render() {
     return (
@@ -89,11 +98,19 @@ class SearchBar extends React.Component {
   }
 }
 
+class TitrePage extends React.Component{
+  render(){
+    return <h1>Liste de Vins classés par région</h1>
+  }
+}
+
 class FilterableProductTable extends React.Component {
   render() {
     return (
       <div>
+        <TitrePage />
         <SearchBar />
+        <DropDownList />
         <ProductTable products={this.props.products} />
       </div>
     );
