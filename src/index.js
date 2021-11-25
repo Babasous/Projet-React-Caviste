@@ -88,7 +88,7 @@ class DropDownList extends React.Component{
     return(
       <select name="pays" id="pays-select">
           <option value="">--Choisir un pays--</option>
-          <option value="France">Français</option>
+          <option value="France">France</option>
           <option value="Anglais">USA</option>
           <option value="Espagne">Espagne</option>
           <option value="Argentine">Argentine</option>
