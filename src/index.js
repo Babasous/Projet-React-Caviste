@@ -35,7 +35,7 @@ class WineTable extends React.Component{
     const rows = [];
     let lastRegion = null;
     
-    this.props.products.forEach((wine) => {
+    this.props.wines.forEach((wine) => {
       if (wine.region !== lastRegion) {
         rows.push(
           <WineRegionRow
@@ -112,7 +112,7 @@ class FilterableProductTable extends React.Component{
         <TitrePage />
         <SearchBar />
         <DropDownList />
-        <WineTable products={this.props.wines} />
+        <WineTable wines={this.props.wines} />
       </div>      
     )
   }
