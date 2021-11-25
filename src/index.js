@@ -2,8 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-class ProductRegionRow extends React.Component {
+// Composant qui affiche une ligne pour chaque vins
+class WineRow extends React.Component{
   render() {
+    const wine = this.props.wine;
+    const name = wine.name;
+
+    return (
+      <tr>
+        <td>{name}</td>
+        <td>{wine.price}</td>
+      </tr>
+    );
+  }
+}
+// Composant qui affiche un titre pour chaque region
+class WineRegionRow extends React.Component{
+  render(){
     const region = this.props.region;
     return (
       <tr>
@@ -14,47 +29,29 @@ class ProductRegionRow extends React.Component {
     );
   }
 }
-
-class ProductRow extends React.Component {
-  render() {
-    const product = this.props.product;
-    const name = product.stocked ?
-      product.name :
-      <span style={{color: 'black'}}>
-        {product.name}
-      </span>;
-
-    return (
-      <tr>
-        <td>{name}</td>
-        <td>{product.price}</td>
-      </tr>
-    );
-  }
-}
-
-class ProductTable extends React.Component {
-  render() {
+// Composant qui affiche et filtre la collection de données saisies par User
+class WineTable extends React.Component{
+  render(){
     const rows = [];
-    let lastCategory = null;
+    let lastRegion = null;
     
-    this.props.products.forEach((product) => {
-      if (product.region !== lastCategory) {
+    this.props.products.forEach((wine) => {
+      if (wine.region !== lastRegion) {
         rows.push(
-          <ProductRegionRow
-            region={product.region}
-            key={product.region} />
+          <WineRegionRow
+            region={wine.region}
+            key={wine.region} />
         );
       }
       rows.push(
-        <ProductRow
-          product={product}
-          key={product.name} />
+        <WineRow
+          wine={wine}
+          key={wine.name} />
       );
-      lastCategory = product.region;
+      lastRegion = wine.region;
     });
 
-    return (
+    return(
       <table>
         <thead>
           <tr>
@@ -68,11 +65,29 @@ class ProductTable extends React.Component {
   }
 }
 
+// Composant qui reçoit les données saisies par User
+class SearchBar extends React.Component{
+  render(){
+    return(
+      <form>
+        <div>
+          <input type="text" placeholder="Rechercher par le nom" />
+        </div>
+        <div>
+          <input type="checkbox" />
+          {' '}
+          Vins groupés par région 
+        </div>
+      </form>
+    );
+  }
+}
+// Composant qui affiche la liste deroulante des pays
 class DropDownList extends React.Component{
   render(){
     return(
       <select name="pays" id="pays-select">
-          <option value="">--Choisir une langue--</option>
+          <option value="">--Choisir un pays--</option>
           <option value="France">Français</option>
           <option value="Anglais">USA</option>
           <option value="Espagne">Espagne</option>
@@ -82,43 +97,27 @@ class DropDownList extends React.Component{
     )
   }
 }
-
-class SearchBar extends React.Component {
-  render() {
-    return (
-      <form>
-        <input type="text" placeholder="Search..." />
-        <p>
-          <input type="checkbox" />
-          {' '}
-          Vins groupés par région 
-        </p>
-      </form>
-    );
-  }
-}
-
+// Composant titre
 class TitrePage extends React.Component{
   render(){
-    return <h1>Liste de Vins classés par région</h1>
+    return <h1>La liste de vins par région</h1>
   }
 }
 
-class FilterableProductTable extends React.Component {
-  render() {
-    return (
+// Composant principal, contient les autres composants
+class FilterableProductTable extends React.Component{
+  render(){
+    return(
       <div>
         <TitrePage />
         <SearchBar />
         <DropDownList />
-        <ProductTable products={this.props.products} />
-      </div>
-    );
+        <WineTable products={this.props.wines} />
+      </div>      
+    )
   }
 }
-
-
-const PRODUCTS = [
+const WINES = [
   {
     "id": "9",
     "name": "BLOCK NINE",
@@ -288,8 +287,5 @@ const PRODUCTS = [
       "extra": null
   }
 ];
- 
-ReactDOM.render(
-  <FilterableProductTable products={PRODUCTS} />,
-  document.getElementById('root')
-);
+
+ReactDOM.render(<FilterableProductTable wines={WINES}/>, document.getElementById('root'));
