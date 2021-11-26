@@ -94,7 +94,7 @@ class DropDownList extends React.Component{
 
   handleChange(e){ 
     console.log(e)
-    
+
     this.setState({
       country: e.target.value
      
@@ -104,12 +104,12 @@ class DropDownList extends React.Component{
   render(){
     return<div>
         <select value={this.state.country} onChange={this.handleChange}>
-        <option value="France">France</option>
             <option value="allCountry">All Country</option>
+            <option value="france">France</option>
             <option value="anglais">USA</option>
-            <option value="espagne">Espagne</option>
+            <option value="spain">Espagne</option>
             <option value="argentine">Argentine</option>
-            <option value="italie">Italie</option>
+            <option value="italy">Italie</option>
         </select>
       </div>
   }
