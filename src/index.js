@@ -39,14 +39,14 @@ class WineTable extends React.Component{
       if (wine.region !== lastRegion) {
         rows.push(
           <WineRegionRow
-            region={wine.region}
-            key={wine.region} />
+            region = { wine.region }
+            key = { wine.region } />
         );
       }
       rows.push(
         <WineRow
-          wine={wine}
-          key={wine.name} />
+          wine = { wine }
+          key = { wine.name } />
       );
       lastRegion = wine.region;
     });
@@ -84,17 +84,34 @@ class SearchBar extends React.Component{
 }
 // Composant qui affiche la liste deroulante des pays
 class DropDownList extends React.Component{
+  constructor(props){
+    super(props)
+    this.state = {
+        country: "allCountry"
+    }
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleChange(e){ 
+    console.log(e)
+    
+    this.setState({
+      country: e.target.value
+     
+    })
+  }
+
   render(){
-    return(
-      <select name="pays" id="pays-select">
-          <option value="">--Choisir un pays--</option>
-          <option value="France">France</option>
-          <option value="Anglais">USA</option>
-          <option value="Espagne">Espagne</option>
-          <option value="Argentine">Argentine</option>
-          <option value="Italie">Italie</option>
-      </select>
-    )
+    return<div>
+        <select value={this.state.country} onChange={this.handleChange}>
+        <option value="France">France</option>
+            <option value="allCountry">All Country</option>
+            <option value="anglais">USA</option>
+            <option value="espagne">Espagne</option>
+            <option value="argentine">Argentine</option>
+            <option value="italie">Italie</option>
+        </select>
+      </div>
   }
 }
 // Composant titre
@@ -112,7 +129,7 @@ class FilterableProductTable extends React.Component{
         <TitrePage />
         <SearchBar />
         <DropDownList />
-        <WineTable wines={this.props.wines} />
+        <WineTable wines = { this.props.wines } />
       </div>      
     )
   }
